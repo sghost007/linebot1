@@ -42,6 +42,8 @@
 
 # 檢視commit log 
 - git log
+# 只顯示一行log
+- git log --oneline
 
 # 綁定遠端倉庫 
 - git remote add origin https://github.com/sghost007/linebot1.git
@@ -56,3 +58,5 @@
 # 同步資料庫
 - python manage.py migrate
 
+# 同步本地跟雲端倉庫
+- git push
