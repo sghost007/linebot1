@@ -1,8 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from datetime import datetime
 import json
 import random
+from django.conf import settings
+from django.http import HttpResponse,HttpResponseBadRequest,HttpResponseForbidden
+from django.views.decorators.csrf import csrf_exempt
+
+from linebot import LineBotApi, WebhookHandler,WebhookParser
+from linebot.exceptions import InvalidSignatureError,LineBotApiError
+from linebot.models import MessageEvent,TextSendMessage
+
+line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
+parse=WebhookParser(settings.LINE_CHANNEL_SECRET)
 
 # Create your views here.
 def index(request):
@@ -11,9 +20,9 @@ def index(request):
 
 def get_books(request):
     mybook={
-1:"java-book",
-2:"python-book",
-3:"c-book"
+        1:"java-book",
+        2:"python-book",
+        3:"c-book"
     }
     return HttpResponse(json.dumps(mybook))
 

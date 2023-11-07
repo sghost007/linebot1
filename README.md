@@ -50,4 +50,9 @@
 # 複製專案
 - git clone https://github.com/sghost007/linebot1
 
+# LINE_CHANNEL_SECRET='be2e9c3505498b9d98355ef027ea4b1f'
+# LINE_CHANNEL_ACCESS_TOKEN='d5rOIw7e1oxUiO96ziZRTB5lThYBT0+Vpc6+VwsiOcduq0rj1nCSRoKN5aE/o7a2XqyJh/hS5TORnKfft/KEw2MKkxrx3BzeHGTRpU/OgCfSfSwacdwwwwCwBiil/OgmO4v QdB04t89/1O/w1cDnyilFU='#
+
+# 同步資料庫
+- python manage.py migrate
 
