@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-+zzmugw-ky$(vafw=q*)^zd2opfxji8&s-r19jv1ld@jby!1fy"
+# 綁定專案跟Line Bot
 LINE_CHANNEL_SECRET="be2e9c3505498b9d98355ef027ea4b1f"
 LINE_CHANNEL_ACCESS_TOKEN="d5rOIw7e1oxUiO96ziZRTB5lThYBT0+Vpc6+VwsiOcduq0rj1nCSRoKN5aE/o7a2XqyJh/hS5TORnKfft/KEw2MKkxrx3BzeHGmrRpU/OgCf8S4W+bUUCo59BLCbtQqtpvi3M4bkDNAl9IngqgghfQdB04t89/1O/w1cDnyilFU="
 # SECURITY WARNING: don't run with debug turned on in production!

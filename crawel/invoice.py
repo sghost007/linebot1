@@ -1,4 +1,26 @@
-from tools import get_soup
+import requests
+from bs4 import BeautifulSoup
+
+def get_soup(url,post_data=None):
+    headers={
+    'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36'  
+    }
+    try:
+        if post_data is not None:
+            resp=requests.post(url,post_data,headers=headers)
+        else:
+            resp=requests.get(url,headers=headers)            
+        resp.encoding='utf-8'
+        if resp.status_code==200:
+            soup=BeautifulSoup(resp.text,'lxml')
+            return soup
+        else:
+            print('網頁取得失敗',resp.status_code)
+    except Exception as e:
+        print('網址錯誤',e)
+        
+    # 失敗則回傳None
+    return None
 
 # 爬找發票
 def get_invoice_numbers():

@@ -10,11 +10,16 @@ from linebot import LineBotApi, WebhookHandler,WebhookParser
 from linebot.exceptions import InvalidSignatureError,LineBotApiError
 from linebot.models import MessageEvent,TextSendMessage,ImageSendMessage
 
+from crawel.invoice import get_invoice_numbers,search_invoice_bingo
+
+
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 parse=WebhookParser(settings.LINE_CHANNEL_SECRET)
-
+start_invoice=False
+numbers=[]
 @csrf_exempt    
 def callback(request):
+    global start_invoice,numbers
     if request.method=='POST':
         signature=request.META['HTTP_X_LINE_SIGNATURE']
         body=request.body.decode('utf-8')
@@ -30,7 +35,26 @@ def callback(request):
                     message=event.message.text
                     # 將message 設為一個物件，判斷回傳的資料是文字還是圖片
                     massage_object=None
-                    if message=="你好":
+                    # 判斷是否進入對獎模式
+                    if start_invoice:
+                        if message=='q':
+                            start_invoice=False
+                            message_text='離開發票對獎模式'
+                        else:
+                            message_text=search_invoice_bingo(message,numbers)
+                            message_text+='\n==>請輸入下一組號碼(q:exit)'
+                        massage_object=TextSendMessage(text=message_text)
+
+
+                    elif message=="1":
+                        numbers=get_invoice_numbers()
+                        message_text='進入發票對獎模式==>本期最新發票對獎號碼'+','.join(numbers)
+                        message_text+='\n請開始輸入你得發票號碼(最少3碼):'
+                        massage_object=TextSendMessage(text=message_text)
+                        start_invoice=True
+
+
+                    elif message=="你好":
                         # TextSendMessage 只能放字串
                         massage_object=TextSendMessage(text="你也好!")
                     elif "樂透" in message:
